@@ -15,7 +15,7 @@ Create a basic Modal component in MusicPlayer that accepts children and has some
 
 - We need to add a `modal` property to the current state, and set it as false by default. We can then set `open` to be `state.modal` and set `close` to be a function that just sets `modal: false`.
 
-- Add click handler to new playlist <li> and have it set `modal: true`.
+- Add click handler to new playlist `<li>` and have it set `modal: true`.
 
 - Create the form for the modal inside of Sidebar itself, passing it as children to the Modal component. Style the form accordingly, and make sure to point how that we will be using a ref to grab the value from the text field to make things easier.
 
