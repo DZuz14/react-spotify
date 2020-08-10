@@ -1,6 +1,6 @@
 # Create Playlist
 
-1. A modal should appear upon click of the <li> item, with a form that allows us to enter a playlist name.
+1. A modal should appear upon click of the `<li>` item, with a form that allows us to enter a playlist name.
 2. Submitting the form adds a new key to `playlists object` with a value of `new Set()`.
    Make sure to change current null values to be Set's as well.
 3. A toast should appear once that finishes, letting us know that the playlist has been created.
