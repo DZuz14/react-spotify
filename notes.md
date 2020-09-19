@@ -1,6 +1,6 @@
-# Part 7: Adding To Playlists
+# Part 7: Adding/Removing From Playlists
 
-Let's start adding songs to our own custom playlists.
+Let's start adding/removing songs to/from our custom created playlists.
 
 ## Add Plus Icon
 
