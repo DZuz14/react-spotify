@@ -1,11 +1,16 @@
 /** @jsx jsx */
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { css, jsx } from '@emotion/core'
 import { StoreContext } from './index'
 
+import AddSongToPlaylist from './AddSongToPlaylist'
+import FavoriteSong from './FavoriteSong'
+
 const Content = () => {
   const { state, dispatch } = useContext(StoreContext)
+
   const currentPlaylist = state.currentPlaylist
+  const isHomeOrFavorites = ['home', 'favorites'].includes(currentPlaylist)
   const songIds = Array.from(state.playlists[currentPlaylist])
 
   return (
@@ -13,13 +18,15 @@ const Content = () => {
       <div className="playlist-title">{currentPlaylist}</div>
 
       {songIds.length <= 0 ? (
-        <p>Your playlist is empty. Start by adding some songs!</p>
+        <p style={{ marginTop: 5 }}>
+          Your playlist is empty. Start by adding some songs!
+        </p>
       ) : (
         <table>
           <thead>
             <tr>
               <td />
-              <td> Title</td>
+              <td>Title</td>
               <td>Artist</td>
               <td>Length</td>
             </tr>
@@ -33,18 +40,20 @@ const Content = () => {
               return (
                 <tr key={id}>
                   <td>
-                    {isFavorite ? (
+                    {state.addSongToPlaylistId !== id && (
+                      <FavoriteSong isFavorite={isFavorite} songId={id} />
+                    )}
+
+                    <AddSongToPlaylist songId={id} />
+
+                    {!isHomeOrFavorites && (
                       <i
-                        className="fa fa-heart"
+                        className="fa fa-times"
                         onClick={() =>
-                          dispatch({ type: 'REMOVE_FAVORITE', songId: id })
-                        }
-                      />
-                    ) : (
-                      <i
-                        className="fa fa-heart-o"
-                        onClick={() =>
-                          dispatch({ type: 'ADD_FAVORITE', songId: id })
+                          dispatch({
+                            type: 'REMOVE_SONG_FROM_PLAYLIST',
+                            songId: id
+                          })
                         }
                       />
                     )}
@@ -100,6 +109,10 @@ const CSS = css`
 
   i {
     cursor: pointer;
+  }
+
+  i:not(:first-of-type) {
+    margin-left: 10px;
   }
 `
 

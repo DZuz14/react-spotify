@@ -13,10 +13,14 @@ const DEFAULT_PLAYLIST = 'home'
 
 const initialState = {
   media,
+  addSongToPlaylistId: '',
   currentPlaylist: DEFAULT_PLAYLIST,
   playlists: {
     home: new Set(media.ids),
-    favorites: new Set()
+    favorites: new Set(),
+    rock: new Set(),
+    rap: new Set(),
+    'old school': new Set()
   }
 }
 
@@ -34,6 +38,16 @@ const reducer = (state, action) => {
       return { ...state }
     case 'REMOVE_FAVORITE':
       state.playlists.favorites.delete(action.songId)
+      return { ...state }
+    case 'SET_ADD_SONG_TO_PLAYLIST_ID':
+      return { ...state, addSongToPlaylistId: action.songId }
+    case 'ADD_SONG_TO_PLAYLIST':
+      state.playlists[action.playlist].add(state.addSongToPlaylistId)
+      return { ...state, addSongToPlaylistId: '' }
+    case 'CANCEL_ADD_SONG_TO_PLAYLIST':
+      return { ...state, addSongToPlaylistId: '' }
+    case 'REMOVE_SONG_FROM_PLAYLIST':
+      state.playlists[state.currentPlaylist].delete(action.songId)
       return { ...state }
   }
 
